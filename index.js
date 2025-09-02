@@ -1,38 +1,75 @@
-const blocks = [
-  { color: "red", number: 5, width: "20px", height: "100px" },
-  { color: "blue", number: 12, width: "20px", height: "240px" },
-  { color: "green", number: 7, width: "20px", height: "140px" },
-  { color: "yellow", number: 3, width: "20px", height: "60px" },
-  { color: "purple", number: 9, width: "20px", height: "180px" },
-  { color: "orange", number: 15, width: "20px", height: "300px" },
-  { color: "pink", number: 2, width: "20px", height: "40px" },
-  { color: "brown", number: 8, width: "20px", height: "160px" },
-  { color: "aqua", number: 6, width: "20px", height: "120px" },
-  { color: "magenta", number: 11, width: "20px", height: "220px" }
+const arr = [
+  { color: "red", number: 5, height: "100px" },
+  { color: "blue", number: 12, height: "240px" },
+  { color: "green", number: 7, height: "140px" },
+  { color: "yellow", number: 3, height: "60px" },
+  { color: "purple", number: 9, height: "180px" },
+  { color: "orange", number: 15, height: "300px" },
+  { color: "pink", number: 2, height: "40px" },
+  { color: "brown", number: 8, height: "160px" },
+  { color: "aqua", number: 6, height: "120px" },
+  { color: "magenta", number: 11, height: "220px" },
+  { color: "lime", number: 4, height: "80px" },
+  { color: "teal", number: 10, height: "200px" },
+  { color: "navy", number: 13, height: "260px" },
+  { color: "maroon", number: 16, height: "320px" },
+  { color: "olive", number: 1, height: "20px" },
+  { color: "coral", number: 14, height: "280px" },
+  { color: "gold", number: 18, height: "360px" },
+  { color: "silver", number: 19, height: "380px" },
+  { color: "indigo", number: 20, height: "400px" },
+  { color: "violet", number: 17, height: "340px" },
+  { color: "cyan", number: 21, height: "420px" },
+  { color: "khaki", number: 22, height: "440px" },
+  { color: "lavender", number: 23, height: "460px" },
+  { color: "crimson", number: 24, height: "480px" },
+  { color: "beige", number: 25, height: "500px" },
+  { color: "orchid", number: 26, height: "520px" },
+  { color: "turquoise", number: 27, height: "540px" },
+  { color: "salmon", number: 28, height: "560px" },
+  { color: "chocolate", number: 29, height: "580px" },
+  { color: "plum", number: 30, height: "600px" }
 ];
+
+let blocks = arr.slice(0,10);  ;
+let size;
+ document.getElementById('arraySize').addEventListener('change',(event)=>{
+    size=event.target.value;
+    console.log(size);
+    blocks=arr.slice(0,size);
+    document.getElementById('panel').innerHTML='';
+    create();
+});
+ let s=100;
+document.getElementById('speed').addEventListener('change',(event)=>{
+     s=event.target.value;
+    console.log(s);
+});   
+
 
 function create(){
     const panel=document.getElementById('panel');
     for(let i=0;i<blocks.length;i++){
     const block=document.createElement('div');
     block.id=`block${i}`;
+    block.id='Box';
     block.innerHTML=`${blocks[i].number}`
     block.style.color = 'white'; // so text is visible
 block.style.textAlign = 'center';
 block.style.fontSize = 'large';
     block.style.backgroundColor = blocks[i].color;
-    block.style.width = '80px';
+    block.style.width = 'auto';
     block.style.position='absolute';
-    block.style.left = `${i * 90}px`; 
+    block.style.left = `${i * 30}px`; 
     block.style.bottom='0px'
-    block.style.borderRadius="10px"
+    block.style.borderRadius="5px"
     block.style.height = `${blocks[i].height}`; // height proportional to number
     block.style.display = 'inline-block';
     block.style.margin = '0 2px';
     panel.appendChild(block);
     }
 }
-create();
+// create();
 
 // -----------------------------------------------
 
@@ -48,7 +85,7 @@ async function bubbleSort() {
         const panel=document.getElementById('panel');
         panel.innerHTML="";
         create(); // update UI
-        await new Promise(resolve => setTimeout(resolve, 500)); // delay
+        await new Promise(resolve => setTimeout(resolve,s)); // delay
       }
     }
     if (!swapped) break;
@@ -82,7 +119,7 @@ async function  Selection_Sort() {
         const panel=document.getElementById('panel');
         panel.innerHTML="";
         create();
-       await new Promise(resolve => setTimeout(resolve, 500));
+       await new Promise(resolve => setTimeout(resolve,s));
     }
 
 }
@@ -141,7 +178,7 @@ async function Merge_Sort() {
         const panel = document.getElementById('panel');
         panel.innerHTML = "";
         create();
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, s));
     }
 
     await mergeSort(blocks, left, right);
@@ -161,5 +198,12 @@ document.getElementById('left').addEventListener('click',(event)=>{
       Merge_Sort();
     //  create();
 })
+document.getElementById('restart').addEventListener('click',()=>{
+    // let random=Math.floor(Math.random()*10))
+    blocks=arr.slice(0,10);
+    document.getElementById('panel').innerHTML="";
+    // create();
+});
+
 
 
